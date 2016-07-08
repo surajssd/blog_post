@@ -135,6 +135,36 @@ docker network create -d macvlan \
     macvlan1
 ```
 
+### VLAN tagging
+
+Create Docker Network
+```bash
+docker network create -d macvlan \
+    --subnet=192.168.215.0/24 \
+    --gateway=192.168.215.1 \
+    -o parent=eth0.215 \
+    macvlan215
+```
+
+Start two containers, named `fedora1` and `fedora2`
+```
+docker run -itd --net=macvlan215  \
+    --name fedora1 \
+    --ip=192.168.215.10 \
+    fedora:my bash
+docker run -itd --net=macvlan215 \
+    --name fedora2 \
+    --ip=192.168.215.11 \
+    fedora:my bash
+```
+
+Ping each other from the containers
+```bash
+docker exec -it fedora1 ip a 
+docker exec -it fedora1 ping -c 3 192.168.215.11
+docker exec -it fedora1 ping -c 3 192.168.215.1
+```
+
 
 ## Manual `ipvlan l2` mode
 
