@@ -147,6 +147,23 @@ ip netns exec myns1 ifconfig ipvlan1 192.168.121.130/24 up
 ip netns exec myns2 ifconfig ipvlan2 192.168.121.140/24 up
 ```
 
+See the IP addr and MAC addr assigned
+```bash
+ip netns exec myns1 ip a
+ip netns exec myns2 ip a
+```
+
+See the MAC address of Docker Host VM, it matches with the interfaces in namespaces
+```bash
+ip a sh eth0
+```
+
+Ping from one namespace to another, also ping the host machine.
+```bash
+ip netns exec myns1 ping -c 2 192.168.121.140
+ip netns exec myns1 ping -c 2 192.168.121.1
+```
+
 Remove those namespaces
 ```bash
 ip netns del myns1
