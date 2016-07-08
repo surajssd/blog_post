@@ -32,9 +32,16 @@ ip netns exec namespace1 ifconfig mymacvlan1 192.168.121.50/24 up
 ip netns exec namespace2 ifconfig mymacvlan2 192.168.121.60/24 up
 ```
 
-Ping from one namespace to another
+See the IP addr and MAC addr assigned
+```
+ip netns exec namespace1 ip a
+ip netns exec namespace2 ip a
+```
+
+Ping from one namespace to another, also ping the host machine.
 ```bash
-ip netns exec namespace1 ping 192.168.121.60
+ip netns exec namespace1 ping -c 2 192.168.121.60
+ip netns exec namespace1 ping -c 2 192.168.121.1
 ```
 
 Remove those namespaces
