@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+
+  config.vm.define "fedora1" do |fedora1|
+    fedora1.vm.box = "fedora/23-cloud-base"
+    config.vm.hostname = "fedora1"
+  end
+
+  config.vm.define "fedora2" do |fedora2|
+    fedora2.vm.box = "fedora/23-cloud-base"
+    config.vm.hostname = "fedora2"
+  end
+
+  config.vm.provider "libvirt" do |libvirt, override|
+    libvirt.driver = "kvm"
+    libvirt.memory = 4096
+    libvirt.cpus = 4
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    echo 'fastestmirror=1' | sudo tee -a /etc/dnf/dnf.conf
+	sudo dnf -y update
+    SHELL
+
+end
