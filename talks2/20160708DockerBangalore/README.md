@@ -73,7 +73,7 @@ ip netns del namespace2
 
 ## `macvlan` using `docker`
 
-### General `macvlan`
+#### General `macvlan`
 
 Create Docker Network
 ```bash
@@ -111,7 +111,7 @@ docker exec -it fedora1 \
     curl 192.168.121.1:8000/Vagrantfile
 ```
 
-### Cleanup
+#### Cleanup
 
 Stop all running containers, remove them, remove all manually added networks
 ```bash
@@ -122,7 +122,7 @@ docker network rm $(docker network ls -q)
 
 **Note**: In both `macvlan` and `ipvlan` you are not able to ping or communicate with the default namespace IP address. For example, if you create a container and try to ping the Docker host's `eth0` it will not work. That traffic is explicitly filtered by the kernel modules themselves to offer additional provider isolation and security.
 
-### Exclude IP addresses in Network creation
+#### Exclude IP addresses in Network creation
 
 ```bash
 docker network create -d macvlan \
@@ -135,7 +135,7 @@ docker network create -d macvlan \
     macvlan1
 ```
 
-### VLAN tagging
+#### VLAN tagging
 
 Checkout your network interfaces
 ```bash
@@ -233,7 +233,7 @@ ip netns del myns2
 
 ## `ipvlan` using `docker`
 
-### General `l2` mode network
+#### General `l2` mode network
 
 Create Docker Network
 ```bash
@@ -269,7 +269,7 @@ Ping each other from the containers
 docker exec -it fedora1 ping -c 2 fedora2
 ```
 
-### Isolated `l2` mode network
+#### Isolated `l2` mode network
 
 ```bash
 docker network create -d ipvlan \
