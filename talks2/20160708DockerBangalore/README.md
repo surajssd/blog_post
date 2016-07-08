@@ -1,5 +1,26 @@
 # `macvlan` and `ipvlan`
 
+## Setting up environment
+
+```bash
+$ sudo dnf -y install vagrant-libvirt
+$ curl -O https://raw.githubusercontent.com/surajssd/blog_post/master/talks2/20160708DockerBangalore/Vagrantfile
+$ vagrant up
+$ vagrant ssh fedora1
+[vagrant@fedora1 ~]$ curl -O https://raw.githubusercontent.com/surajssd/blog_post/master/talks2/20160708DockerBangalore/install_docker.sh
+[vagrant@fedora1 ~]$ sh ./install_docker.sh
+[vagrant@fedora1 ~]$ curl -O https://raw.githubusercontent.com/surajssd/blog_post/master/talks2/20160708DockerBangalore/create_fedora.sh
+[vagrant@fedora1 ~]$ sh ./create_fedora.sh
+[vagrant@fedora1 ~]$ sudo -i
+[root@fedora1 ~]# ip a sh eth0
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:4e:2c:65 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.121.195/24 brd 192.168.121.255 scope global dynamic eth0
+       valid_lft 2350sec preferred_lft 2350sec
+    inet6 fe80::5054:ff:fe4e:2c65/64 scope link 
+       valid_lft forever preferred_lft forever
+```
+
 ## Manually setting up `macvlan`
 
 Add new network namespaces
