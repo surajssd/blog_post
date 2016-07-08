@@ -72,7 +72,7 @@ docker run --net=macvlan1 -it -d \
     --name fedora2 fedora:my bash
 ```
 
-Get IP addresses of the `eth0` interface in both containers
+Get IP addresses and MAC addresses of the `eth0` interface in both containers
 ```bash
 docker exec -it fedora1 ip a sh eth0
 docker exec -it fedora2 ip a sh eth0
@@ -96,7 +96,7 @@ Stop all running containers, remove them, remove all manually added networks
 ```bash
 docker stop $(docker ps -qa)
 docker rm -f $(docker ps -aq)
-docker network rm macvlan1
+docker network rm $(docker network ls -q)
 ```
 
 **Note**: In both `macvlan` and `ipvlan` you are not able to ping or communicate with the default namespace IP address. For example, if you create a container and try to ping the Docker host's eth0 it will not work. That traffic is explicitly filtered by the kernel modules themselves to offer additional provider isolation and security.
