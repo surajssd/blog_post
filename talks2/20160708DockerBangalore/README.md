@@ -137,6 +137,11 @@ docker network create -d macvlan \
 
 ### VLAN tagging
 
+Checkout your network interfaces
+```bash
+ip a
+```
+
 Create Docker Network
 ```bash
 docker network create -d macvlan \
@@ -144,6 +149,11 @@ docker network create -d macvlan \
     --gateway=192.168.215.1 \
     -o parent=eth0.215 \
     macvlan215
+```
+
+Checkout your network interfaces again, the interface `eth0.215@eth0` is automatically added, this is taken care by `docker` for us.
+```bash
+ip a
 ```
 
 Start two containers, named `fedora1` and `fedora2`
